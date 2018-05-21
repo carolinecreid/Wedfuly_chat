@@ -3,6 +3,7 @@ import "package:firebase_database/firebase_database.dart";
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import "package:firebase_auth/firebase_auth.dart";
 import "dart:async";
+import "dart:collection";
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({ Key key }) : super(key: key);
@@ -39,8 +40,6 @@ class ChatScreenState extends State<ChatScreen> {
 
   final userID = firebaseAuth.currentUser.uid;
 
-
-
   var data;
   DataSnapshot snapshot;
   var snapSources;
@@ -51,7 +50,6 @@ class ChatScreenState extends State<ChatScreen> {
 
   Future getData() async {
     weddingId = await FirebaseDatabase.instance.reference().child('users').child(userID).child('currentWedding').once();
-    print(weddingId.value);
     messageRef = FirebaseDatabase.instance.reference().child('weddingChatMessages').child(weddingId.value);
     this.setState(() {
 
@@ -67,9 +65,7 @@ class ChatScreenState extends State<ChatScreen> {
   }
 
   void _ensureLoggedIn() async {
-    print("entered login checker");
     FirebaseUser user = firebaseAuth.currentUser;
-
 
     if (user == null){
       Navigator.of(context).pushNamed("/Login");
@@ -216,8 +212,8 @@ class ChatMessageState extends State<ChatMessage> {
   String firstLetter;
   String color;
 
-  List<String> planners = [
-    '1IKpfKWzKSbMQzsm7caYHElGkAF3',
+  List<String> planners
+   =[ '1IKpfKWzKSbMQzsm7caYHElGkAF3',
     'eVc7I7fyOWPEfZFCfKMoluXsttv1',
     'gOIew51tyHdCKcQxwzAMI9RmXem2',
     'iartVIOZcXYLr4KkCtl2tUFYTjf2',
@@ -227,14 +223,22 @@ class ChatMessageState extends State<ChatMessage> {
   ];
   String user = firebaseAuth.currentUser.uid;
   void getUsers() async{
+
+
+    DataSnapshot plannerSnap = await FirebaseDatabase.instance.reference().child("planners").child(snapshot.value['from']).child('uid').once();
+    String plannerName = plannerSnap.value;
+    if(plannerName != null){
+      color = 'planner';
+    }
+
     String from = snapshot.value['from'];
     nameRef = await FirebaseDatabase.instance.reference().child("users").child(from).child('info').child('displayName').once();
     fromName = nameRef.value;
-    for(int i =0; i < planners.length; i ++){
-      if (snapshot.value['from'] == planners[i]) {
-        color = 'planner';
-      }
-    }
+//    for(int i =0; i < planners.length; i ++){
+//      if (snapshot.value['from'] == planners[i]) {
+//        color = 'planner';
+//      }
+//    }
     if(fromName != null){
       if(fromName.isEmpty)
         firstLetter = ':)';
