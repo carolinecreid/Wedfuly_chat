@@ -1,16 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'style.dart';
+import "package:flutter/material.dart";
+import "package:firebase_database/firebase_database.dart";
+import 'package:firebase_database/ui/firebase_animated_list.dart';
+import "package:firebase_auth/firebase_auth.dart";
+import "dart:async";
 
-
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key key}) : super(key: key);
-
+class SignUp extends StatelessWidget {
   @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
+  Widget build(BuildContext context) {
+    return new Container();
   }
-
 }
-
-

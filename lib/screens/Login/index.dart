@@ -47,7 +47,7 @@ class LoginScreenState extends State<LoginScreen> {
       userAuth.verifyUser(user).then((onValue) {
         if (onValue == "Login Successfull")
 
-          Navigator.pushNamed(context, "/HomePage");
+          Navigator.pushNamed(context, "/MenuPage");
 
         else
           showInSnackBar(onValue);

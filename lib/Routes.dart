@@ -7,7 +7,7 @@ import 'package:Wedfuly_Chat/theme/style.dart';
 class Routes {
 
   var routes = <String, WidgetBuilder>{
-    "/SignUp": (BuildContext context) => new SignUpScreen(),
+    "/MenuPage": (BuildContext context) => new MenuScreen(),
     "/HomePage": (BuildContext context) => new HomeScreen()
   };
 
