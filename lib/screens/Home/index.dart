@@ -214,15 +214,30 @@ class ChatMessageState extends State<ChatMessage> {
   String fromName;
   DataSnapshot nameRef;
   String firstLetter;
+  String color;
 
+  List<String> planners = [
+    '1IKpfKWzKSbMQzsm7caYHElGkAF3',
+    'eVc7I7fyOWPEfZFCfKMoluXsttv1',
+    'gOIew51tyHdCKcQxwzAMI9RmXem2',
+    'iartVIOZcXYLr4KkCtl2tUFYTjf2',
+    'pvsKSmBrIjUh5v8OhDD9sJIiLNl1',
+    'RcjtySXVLqOpMtaRv03sbFgSsbp1',
+    'UpyBJhK76EWaqqHdFNmjSZGNZKE2'
+  ];
+  String user = firebaseAuth.currentUser.uid;
   void getUsers() async{
     String from = snapshot.value['from'];
     nameRef = await FirebaseDatabase.instance.reference().child("users").child(from).child('info').child('displayName').once();
     fromName = nameRef.value;
-
+    for(int i =0; i < planners.length; i ++){
+      if (snapshot.value['from'] == planners[i]) {
+        color = 'planner';
+      }
+    }
     if(fromName != null){
       if(fromName.isEmpty)
-        firstLetter = 'N/A';
+        firstLetter = ':)';
       else
         firstLetter = fromName[0];
     }
@@ -233,14 +248,6 @@ class ChatMessageState extends State<ChatMessage> {
     }
 
   }
-
-  String user = firebaseAuth.currentUser.uid;
-
-//  @override
-//  State<StatefulWidget> createState() {
-//    // TODO: implement createState
-//   // getUsers();
-//  }
 
   @override
   initState(){
@@ -267,7 +274,7 @@ class ChatMessageState extends State<ChatMessage> {
               margin: const EdgeInsets.only(right: 16.0),
               child: new CircleAvatar(
                 child: new Text(fromName == null ? '?' : firstLetter),
-                backgroundColor: const Color.fromRGBO(52, 88, 99, 1.0),
+                backgroundColor: color == 'planner' ? const Color.fromRGBO(52, 88, 99, 1.0) : const Color.fromRGBO(223, 97, 31, 1.0),
                 foregroundColor: Colors.white,
               ),
             ),
