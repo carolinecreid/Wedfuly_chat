@@ -152,12 +152,12 @@ class SingleCardState extends State<SingleCard> {
   }
 }
 
-
+//_______________________________________________________________________
+//_______________________________________________________________________
 //_______________________________________________________________________
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({ Key key, this.weddingId }) : super(key: key);
-  final weddingId;
+  const HomeScreen({ Key key }) : super(key: key);
   @override
   HomeScreenState createState() => new HomeScreenState();
 }
@@ -196,9 +196,16 @@ class ChatScreenState extends State<ChatScreen> {
 
   String weddingId;
   DatabaseReference messageRef;
-
+  bool staff= false;
 
   Future getData() async {
+    //find out if staff or not
+    DataSnapshot staffSnap = await FirebaseDatabase.instance.reference().child("planners").child(FirebaseAuth.instance.currentUser.uid).child('uid').once();
+
+    if(staffSnap != null){
+      staff = true;
+    }
+
     weddingId = weddingIdMaster;
     print(weddingIdMaster);
     messageRef = FirebaseDatabase.instance.reference().child('weddingChatMessages').child(weddingId);
@@ -322,20 +329,17 @@ class ChatScreenState extends State<ChatScreen> {
     String dateTime = new DateTime.now().toIso8601String().substring(0, 19);
     dateTime = dateTime + "Z";
     String user = userID.toString();
-    print(dateTime);
     messageRef.push().set({
       'text': text,
       'from': user,
       'sendTime': dateTime,
-      //TODO fix this to actually pull in if staff or not
-      'readByStaff': false,
+      'readByStaff': staff,
       'readBy': {
         user: dateTime
       }
     });
 
-    print("got through to end of send message)");
-
+    print("got through to end of send message");
   }
 
 }
@@ -359,6 +363,7 @@ class ChatMessageState extends State<ChatMessage> {
   DataSnapshot nameRef;
   String firstLetter;
   String color;
+  bool staff;
 
   String user = firebaseAuth.currentUser.uid;
   void getUsers() async{
@@ -438,7 +443,7 @@ class ChatMessageState extends State<ChatMessage> {
         new Icon(Icons.chrome_reader_mode,
             color: Colors.grey, size: 60.0),
         new Text(
-          "No articles saved",
+          "No chat",
           style: new TextStyle(
               fontSize: 24.0, color: Colors.grey),
         ),
