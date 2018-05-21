@@ -2,20 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleURLTypes</key>
-      <array>
-          <dict>
-             <key>CFBundleTypeRole</key>
-             <string>Editor</string>
-             <key>CFBundleURLSchemes</key>
-             <array>
-             <!-- reverse url of your client id, for example: -->
-    <string>com.googleusercontent.apps.284876987503-g6go45ksnj5r4uv4k9lschjlshpmbsh4</string>
-             <!-- bundle id, for example: -->
-                <string>com.yourcompany.flutterFlatApp</string>
-             </array>
-          </dict>
-      </array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -25,13 +11,25 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>flutter_flat_app</string>
+	<string>wedfuly_chat</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.128332576490-4ebai1lsrq8vjisi34p55nnrld5c5bfc</string>
+				<string>com.wedfuly.chatapp</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
