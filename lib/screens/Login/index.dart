@@ -40,10 +40,12 @@ class LoginScreenState extends State<LoginScreen> {
     final FormState form = formKey.currentState;
 
     if (!form.validate()) {
+      print("if");
       autovalidate = true; // Start validating on every change.
       showInSnackBar('Please fix the errors in red before submitting.');
     } else {
       form.save();
+
       userAuth.verifyUser(user).then((onValue) {
         if (onValue == "Login Successfull")
 
@@ -51,6 +53,7 @@ class LoginScreenState extends State<LoginScreen> {
 
         else
           showInSnackBar(onValue);
+
       }).catchError((Object onError) {
         print("error");
         print(onError.toString());

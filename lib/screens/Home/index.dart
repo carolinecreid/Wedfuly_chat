@@ -93,11 +93,9 @@ class SingleCardState extends State<SingleCard> {
   void getWeddings() async{
 
     weddingId = snapshot.key;
-    print(weddingId);
     weddingIdMaster = weddingId;
     weddingRef = await FirebaseDatabase.instance.reference().child("weddings").child(weddingId).child('info').child('displayName').once();
     weddingName = weddingRef.value;
-    print(weddingName);
 
     setState(() {
 
@@ -110,7 +108,6 @@ class SingleCardState extends State<SingleCard> {
     super.initState();
     getWeddings();
   }
-
 
 
   @override
@@ -132,7 +129,6 @@ class SingleCardState extends State<SingleCard> {
                   new FlatButton(
                     child: const Text('CHAT'),
                     onPressed: () {
-                      //todo go to new page with weddingId passed through
                       Navigator.push(
                           context,
                           new MaterialPageRoute(
@@ -207,7 +203,6 @@ class ChatScreenState extends State<ChatScreen> {
     }
 
     weddingId = weddingIdMaster;
-    print(weddingIdMaster);
     messageRef = FirebaseDatabase.instance.reference().child('weddingChatMessages').child(weddingId);
     this.setState(() {
 
@@ -229,7 +224,6 @@ class ChatScreenState extends State<ChatScreen> {
       Navigator.of(context).pushNamed("/Login");
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -321,7 +315,8 @@ class ChatScreenState extends State<ChatScreen> {
       _isComposing = false;
     });
     await _ensureLoggedIn();                                       //new
-    _sendMessage(text: text);                                      //new
+    _sendMessage(text: text);
+
   }
 
   void _sendMessage({ String text }) {
@@ -338,7 +333,6 @@ class ChatScreenState extends State<ChatScreen> {
         user: dateTime
       }
     });
-
     print("got through to end of send message");
   }
 
